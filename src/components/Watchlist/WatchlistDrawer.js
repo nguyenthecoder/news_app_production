@@ -54,56 +54,36 @@ const WatchlistDrawer = props => {
   }
 
   const onRemovedSticker = (symbol, description) => {
-    console.log('removing ')
     const result = stickers.find(x => x.name.symbol === symbol)
     if (result !== undefined) {
-      console.log('hit api')
       dispatch(removeWatchlistAction(symbol, description))
     }
   }
-
-  // const onShowCompanyDrawer = () => {
-  //   console.log(showingCompany)
-  //   setShowingCompany(true)
-  // }
-
-  // const onCloseCompanyDrawer = () => {
-  //   setShowingCompany(false)
-  // }
 
   const changeIndex = (oldIdx, newIdx) => {
     const toInsert = stickers[oldIdx]
     stickers.splice(oldIdx, 1)
     stickers.splice(newIdx, 0, toInsert)
-    console.log(stickers)
     setStickers([...stickers])
   }
 
   useEffect(() => {
     setLoading(true)
-    console.log(authState)
     if (authState.type === SIGNED_IN) {
       if (watchlistState.type === WATCHLIST_UPDATED || watchlistState.type === null) {
         dispatch(getWatchlistAction())
       } else if (watchlistState.type === WATCHLIST_FETCHED) {
-        console.log('Setting stickers')
         setStickers(watchlistState.watchlist)
         setErrorMessage(null)
         setLoading(false)
-      // } else if (watchlistState.type === WATCHLIST_FETCH_FAILED) {
-      //   console.log('watchlist fetched failed')
-      //   dispatch(getGuestWatchlistAction())
       } else if (watchlistState.type === WATCHLIST_UPDATE_FAILED || watchlistState.type === WATCHLIST_FETCH_FAILED) {
-        console.error('update watchlist failed')
         setErrorMessage('Oops! error while updating watchlist')
         setLoading(false)
       }
     } else {
       if (watchlistState.type === null) {
-        console.log('fetching guest')
         dispatch(getGuestWatchlistAction())
       } else if (watchlistState.type === WATCHLIST_FETCHED) {
-        console.log('Setting stickers')
         setStickers(watchlistState.watchlist)
         setErrorMessage(null)
         setLoading(false)

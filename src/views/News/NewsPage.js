@@ -42,7 +42,6 @@ const NewsPage = (props) => {
   useEffect(() => {
     if ((watchlistState.type === WATCHLIST_UPDATED || watchlistState.type === WATCHLIST_FETCHED)) {
       setLoading(true)
-      console.log('fetching news')
       const terms = []
       for (const watchlist of watchlistState.watchlist) {
         terms.push(watchlist.name.description)
@@ -57,13 +56,10 @@ const NewsPage = (props) => {
             newsData[n.search_term].push(n)
           }
           setNews(newsData)
-          console.log('news data')
-          console.log(newsData)
           setLoading(false)
         })
       }
     }
-    console.log('watchlist state changed')
   }, [watchlistState])
 
   const findSticker = (description) => {
@@ -71,8 +67,6 @@ const NewsPage = (props) => {
     description = description.replace('com', '')
     description = description.replace('inc', '')
     description = description.trim(0)
-
-    console.log('transform description ' + description)
 
     for (const watchlist of watchlistState.watchlist) {
       let watchlistDescription = watchlist.name.description

@@ -13,7 +13,6 @@ const initState = {
 }
 
 const newsReducers = (state = initState, action) => {
-  console.log(action.payload)
   switch (action.type) {
     case HEADLINES_FETCHED:
       return {

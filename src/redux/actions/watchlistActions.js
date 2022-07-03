@@ -16,7 +16,6 @@ import {
 const getWatchlistAction = () => {
   return dispatch => {
     getWatchlist().then(data => {
-      console.log('watch list fetched ' + JSON.stringify(data))
       dispatch({
         type: WATCHLIST_FETCHED,
         payload: data
@@ -34,7 +33,6 @@ const getWatchlistAction = () => {
 const getGuestWatchlistAction = () => {
   return dispatch => {
     getGuestWatchlist().then(data => {
-      console.log(data)
       dispatch({
         type: WATCHLIST_FETCHED,
         payload: data
